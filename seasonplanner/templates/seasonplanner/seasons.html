@@ -1,0 +1,9 @@
+{% if season_list %}
+    <ul>
+    {% for season in season_list %}
+        <li><a href="/seasonplanner/{{season.id }}/">{{ season.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>You do not have any seasons defined. Create a season.</p>
+{% endif %}
