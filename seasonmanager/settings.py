@@ -1,6 +1,6 @@
 # Django settings for seasonmanager project.
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -154,5 +154,5 @@ LOGGING = {
 
 try:
     from local_settings import *
-except ImportError:
-    pass
+except ImportError as e:
+    print('unable to load local_settings.py:' ,e)
