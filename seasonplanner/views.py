@@ -13,8 +13,11 @@ def seasons(request):
     context = {'season_list': season_list}
     return render(request, 'seasonplanner/seasons.html', context)
 
-def season_detail(request, season_id):
+def detail(request, season_id):
     season = get_object_or_404(Season, pk=season_id)
-    return render(request,'seasonplanner/season_detail.html', context)
+    return render(request,'seasonplanner/detail.html', context)
+
+def create(request):
+    return render(request,'seasonplanner/create.html', {})
 
 

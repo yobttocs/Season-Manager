@@ -14,5 +14,5 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-    url(r'^seasonplanner/', include('seasonplanner.urls')),
+    url(r'^seasonplanner/', include('seasonplanner.urls', namespace='seasonplanner', app_name='seasonplanner')),
 )

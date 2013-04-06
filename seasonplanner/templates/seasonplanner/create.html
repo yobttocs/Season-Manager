@@ -1,0 +1,12 @@
+<h1>Create a new season</h1>
+
+<form action="{% url 'seasonplanner:create' %}" method="post">
+{% csrf_token %}
+    <label for="name">Season Name</label>
+    <input type="text" name="name" id="name" />
+    <label for="startdate">Start Date</label>
+    <input type="date" name=startdate" id="startdate" />
+    <label for="weeks">Length of Season</label>
+    <input type="number" name="weeks" id="weeks" />
+<input type="submit" value="Create" />
+</form>
