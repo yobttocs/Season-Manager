@@ -7,6 +7,8 @@ class Season(models.Model):
     owner = models.ForeignKey(User)
     name = models.CharField(max_length=200)
     start_date = models.DateField()
+    def __str__(self):
+        return self.name
     def number_of_weeks(self):
         return 52
 
