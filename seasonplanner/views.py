@@ -2,6 +2,7 @@
 
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from datetime import date
 
 from seasonplanner.models import Season
 
@@ -18,6 +19,8 @@ def detail(request, season_id):
     return render(request,'seasonplanner/detail.html', context)
 
 def create(request):
-    return render(request,'seasonplanner/create.html', {})
+    d = date.today()
+    context = {'today': d.strftime("%Y-%m-%d")}
+    return render(request,'seasonplanner/create.html', context)
 
 
