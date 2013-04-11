@@ -15,7 +15,7 @@
         
             <form action="{% url 'seasonplanner:create' %}" method="post">
             {% csrf_token %}
-                <dl>
+<!--                <dl>
                     <dt><label for="name">Season Name</label></dt>
                     <dd><input type="text" name="name" id="name"></dd>
                     
@@ -27,6 +27,9 @@
                     
                     <dt><input type="submit" value="Create" id="Create"></dd>
                 </dl>
+-->
+            {{ form.as_ul }}
+            <input type="submit" value="Create" id="Create">
             </form>
 
         </section>

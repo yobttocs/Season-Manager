@@ -2,9 +2,11 @@
 
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
-from datetime import date
+from django.core.urlresolvers import reverse
+
 
 from seasonplanner.models import Season
+from seasonplanner.forms import SeasonForm
 
 def index(request):
     return HttpResponse("Hello, world. You're at the seasonplanner index page.")
@@ -17,10 +19,18 @@ def seasons(request):
 def detail(request, season_id):
     season = get_object_or_404(Season, pk=season_id)
     return render(request,'seasonplanner/detail.html', context)
-
+    
 def create(request):
-    d = date.today()
-    context = {'today': d.strftime("%Y-%m-%d")}
-    return render(request,'seasonplanner/create.html', context)
+    #d = date.today()
+    #context = {'today': d.strftime("%Y-%m-%d")}
+    #return render(request,'seasonplanner/create.html', context)
+    if request.method == 'POST':
+        #Bind the form to the data from the request
+        form = SeasonForm(request.POST)
+        if form.is_valid(): #All rules have passed
+            #Process the request
+            return HttpResponseRedirect(reverse('seasonplanner:detail', args=(1,)))
+    else:
+        form= SeasonForm() # an unbound form
 
-
+    return render(request,'seasonplanner/create.html', {'form': form, })
