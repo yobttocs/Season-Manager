@@ -1,26 +1,13 @@
-<!DOCTYPE html>
+{% extends 'seasonplanner/base.html' %}
 
-<html>
-    <head>
-        <title>Create a new season</title>
-    </head>
+{% block title %}Create a new season{% endblock %}
 
-    <body>
-        <header>
-            <h1>Create a new season</h1>
-        </header>
+{% block header %}<h1>Create a new season</h1>{% endblock %}
 
-
-        <section>
-        
+{% block content %}        
             <form action="{% url 'seasonplanner:create' %}" method="post">
             {% csrf_token %}
                 {{ form.as_ul }}
             <input type="submit" value="Create" id="Create">
             </form>
-
-        </section>
-
-    </body>
-
-</html>
+{% endblock %}
