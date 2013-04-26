@@ -1,11 +1,14 @@
-# Create your views here.
+#Create your views here.
+
+from datetime import date, timedelta
 
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
+from django.contrib.auth import authenticate
 
 
-from seasonplanner.models import Season
+from seasonplanner.models import Season, Week
 from seasonplanner.forms import SeasonForm
 
 def index(request):
@@ -29,7 +32,22 @@ def create(request):
         form = SeasonForm(request.POST)
         if form.is_valid(): #All rules have passed
             #Process the request
-            return HttpResponseRedirect(reverse('seasonplanner:detail', args=(1,)))
+            new_season = Season()
+            # For now this code automatically sets the owner of all Seasons to me
+            u = authenticate(username='test', password='test123')
+            new_season.owner = u
+            new_season.name = form.cleaned_data['name']
+            new_season.start_date = form.cleaned_data['start']
+            new_season.save()
+            d = new_season.start_date
+            for i in [range(form.cleaned_data['length'])]:
+                new_week = Week()
+                new_week.name = 'Week ' + str(i)
+                new_week.start_date = d
+                new_week.save()
+                d = d + timedelta(day=7)
+            
+            return HttpResponseRedirect(reverse('seasonplanner:detail', args=(new_season.id,)))
     else:
         form= SeasonForm() # an unbound form
 
