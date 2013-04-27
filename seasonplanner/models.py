@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import date, timedelta
 
 # Create your models here.
 
@@ -10,10 +11,10 @@ class Season(models.Model):
     def __str__(self):
         return self.name
     def number_of_weeks(self):
-        return 52
+        return self.week_set.count()
 
 class Goal(models.Model):
-    "Parent Class for defining goals at a variety of levels"
+    """Parent Class for defining goals at a variety of levels"""
     text = models.CharField(max_length=200)
     completed = models.BooleanField()
 
@@ -34,9 +35,12 @@ class Week(models.Model):
     season = models.ForeignKey(Season)
     start_date = models.DateField()
     description = models.CharField(max_length=100)
+    def weekrange(self):
+        d1 = self.start_date
+        d2 = d1 + timedelta(days=7)
+        return d1.strftime("%m/%d/%Y") + "-" + d2.strftime("%m/%d/%Y")
     def __str__(self):
-        # How can I update this to calculate the end date by adding 7 to the start date
-        return  self.start_date + ' - ' + self.description
+        return self.description + ": " + self.weekrange()
 
 #    physical_attributes = models.ManyToManyField(PhysicalAttribute, verbose_name="list of attributes")
             

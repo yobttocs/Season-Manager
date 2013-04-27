@@ -2,7 +2,7 @@
 
 from datetime import date, timedelta
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate
@@ -21,7 +21,7 @@ def seasons(request):
 
 def detail(request, season_id):
     season = get_object_or_404(Season, pk=season_id)
-    return render(request,'seasonplanner/detail.html', context)
+    return render(request,'seasonplanner/detail.html', {})
     
 def create(request):
     #d = date.today()
@@ -40,12 +40,13 @@ def create(request):
             new_season.start_date = form.cleaned_data['start']
             new_season.save()
             d = new_season.start_date
-            for i in [range(form.cleaned_data['length'])]:
+            for i in range(form.cleaned_data['length']):
                 new_week = Week()
-                new_week.name = 'Week ' + str(i)
+                new_week.season = new_season
+                new_week.description = 'Week ' + str(i+1)
                 new_week.start_date = d
                 new_week.save()
-                d = d + timedelta(day=7)
+                d = d + timedelta(days=7)
             
             return HttpResponseRedirect(reverse('seasonplanner:detail', args=(new_season.id,)))
     else:
