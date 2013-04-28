@@ -1,0 +1,10 @@
+{% extends 'seasonplanner/base.html' %}
+
+{% block title %}Season Detail{% endblock %}
+
+{% block header %}<h1>{{ season.name}}</h1>{% endblock %}
+
+{% block content %}
+    <p>Start Date: {{ season.start_date }}</p>
+    <p>Length of Season (weeks): {{ season.number_of_weeks }}</p>
+{% endblock %}

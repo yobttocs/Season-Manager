@@ -24,9 +24,7 @@ def detail(request, season_id):
     return render(request,'seasonplanner/detail.html', {})
     
 def create(request):
-    #d = date.today()
-    #context = {'today': d.strftime("%Y-%m-%d")}
-    #return render(request,'seasonplanner/create.html', context)
+    """ Create a new season and the selected number of weeks """
     if request.method == 'POST':
         #Bind the form to the data from the request
         form = SeasonForm(request.POST)
