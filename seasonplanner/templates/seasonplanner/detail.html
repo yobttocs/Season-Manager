@@ -7,4 +7,15 @@
 {% block content %}
     <p>Start Date: {{ season.start_date }}</p>
     <p>Length of Season (weeks): {{ season.number_of_weeks }}</p>
+    <p>
+    {% if week_list %}
+    <ul>
+    {% for week in week_list %}
+        <li><a href="/seasonplanner/weeks/{{ week.id }}">{{ week }}</a></li>
+    {% endfor %}
+    </ul>
+    {% else %}
+        <p>No weeks are defined for this Season.</p>
+    {% endif %}
+    </p>
 {% endblock %}

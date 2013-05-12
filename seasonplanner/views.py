@@ -6,10 +6,21 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate
-
+from django.views.generic import DetailView
 
 from seasonplanner.models import Season, Week
 from seasonplanner.forms import SeasonForm
+
+class SeasonDetail(DetailView):
+
+    model = Season
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(SeasonDetail, self).get_context_data(**kwargs)
+        # Add a Queryset of associated weeks
+        context['week_list'] = Week.objects.filter(season=context['season'])
+        return context
 
 def index(request):
     return HttpResponse("Hello, world. You're at the seasonplanner index page.")
