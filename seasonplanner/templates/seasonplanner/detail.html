@@ -11,7 +11,7 @@
     {% if week_list %}
     <ul>
     {% for week in week_list %}
-        <li><a href="/seasonplanner/weeks/{{ week.id }}">{{ week }}</a></li>
+        <li><a href="{% url 'seasonplanner:week_detail' week.id %}">{{ week }}</a></li>
     {% endfor %}
     </ul>
     {% else %}
