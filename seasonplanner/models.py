@@ -17,13 +17,15 @@ class Goal(models.Model):
     """Parent Class for defining goals at a variety of levels"""
     text = models.CharField(max_length=200)
     completed = models.BooleanField()
-
+    def __str__(self):
+        return self.text
+    
     class Meta:
         abstract = True
 
 class SeasonGoal(Goal):
     season = models.ForeignKey(Season)
-
+    
 #class PhysicalAttribute(models.Model):
 #    attribute_name = models.CharField(max_length=100)
 #    description = models.CharField(max_length=200)

@@ -8,6 +8,17 @@
     <p>Start Date: {{ season.start_date }}</p>
     <p>Length of Season (weeks): {{ season.number_of_weeks }}</p>
     <p>
+    {% if goal_list %}
+    <ul>
+    {% for goal in goal_list %}
+        <li>{{ goal }}</li>
+    {% endfor %}
+    </ul>
+    {% else %}
+        <p>No goals are defined for this Season.</p>
+    {% endif %}
+    </p>
+    <p>
     {% if week_list %}
     <ul>
     {% for week in week_list %}
