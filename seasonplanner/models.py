@@ -32,6 +32,7 @@ class SeasonGoal(Goal):
 #        return self.attribute_name + " - " + self.description    
 
 class Week(models.Model):
+    """Week class defines each week of the training season"""
     season = models.ForeignKey(Season)
     start_date = models.DateField()
     description = models.CharField(max_length=100)
@@ -44,11 +45,11 @@ class Week(models.Model):
 
 #    physical_attributes = models.ManyToManyField(PhysicalAttribute, verbose_name="list of attributes")
             
-#class Workout (models.Model):
-#    week = models.ForeignKey(Week)
-#    workout_date = models.DateField()
-#    workout_length = models.IntegerField("Workout Length (minutes)")
-#    notes = models.TextField()
+class Workout (models.Model):
+    week = models.ForeignKey(Week)
+    workout_date = models.DateField()
+    workout_length = models.IntegerField("Workout Length (minutes)")
+    notes = models.TextField()
 
 
     
