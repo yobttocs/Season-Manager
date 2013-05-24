@@ -44,7 +44,11 @@ class Week(models.Model):
         return d1.strftime("%m/%d/%Y") + "-" + d2.strftime("%m/%d/%Y")
     def __str__(self):
         return self.description + ": " + self.weekrange()
-
+    def planned_hours(self):
+        self.plannedworkout_set.aggregate(models.Sum('workout_length'))
+    def completed_hours(self):
+        self.completedworkout_set.aggregate(models.Sum('workout_length'))
+        
 #    physical_attributes = models.ManyToManyField(PhysicalAttribute, verbose_name="list of attributes")
             
 class Workout (models.Model):
@@ -53,6 +57,14 @@ class Workout (models.Model):
     workout_length = models.IntegerField("Workout Length (minutes)")
     notes = models.TextField()
 
+    class Meta:
+        abstract = True
 
+class CompletedWorkout(Workout):
+    """An implementation of the Workout parent class for tracking completed workouts"""
+
+class PlannedWorkout(Workout):
+    """An implementation of the Workout parent class for tracking planned workouts"""
+    
     
     
