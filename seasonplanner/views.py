@@ -14,6 +14,7 @@ from seasonplanner.forms import SeasonForm
 class SeasonDetail(DetailView):
 
     model = Season
+    template_name = 'seasonplanner/detail.html'
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
@@ -63,3 +64,7 @@ def create(request):
         form= SeasonForm() # an unbound form
 
     return render(request,'seasonplanner/create.html', {'form': form, })
+
+class WeekDetailView(DetailView):
+    model = Week
+    template_name = 'seasonplanner/week_detail.html'
