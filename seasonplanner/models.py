@@ -45,10 +45,17 @@ class Week(models.Model):
     def __str__(self):
         return self.description + ": " + self.weekrange()
     def planned_hours(self):
-        self.plannedworkout_set.aggregate(models.Sum('workout_length'))
+        s = self.plannedworkout_set.aggregate(models.Sum('workout_length'))
+        if s['workout_length__sum'] is None:
+            s['workout_length__sum'] = 0
+        return s['workout_length__sum']
+    
     def completed_hours(self):
-        self.completedworkout_set.aggregate(models.Sum('workout_length'))
-        
+        s = self.completedworkout_set.aggregate(models.Sum('workout_length'))
+        if s['workout_length__sum'] is None:
+            s['workout_length__sum'] = 0
+        return s['workout_length__sum']
+    
 #    physical_attributes = models.ManyToManyField(PhysicalAttribute, verbose_name="list of attributes")
             
 class Workout (models.Model):

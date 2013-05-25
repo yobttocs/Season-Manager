@@ -13,13 +13,16 @@ from django.contrib.auth.models import User
 
 def week_generator(season, weeks):
     d = date.today()
+    l = []
     for week in range(weeks):
         w = Week()
         w.season = season
         w.start_date = d
         w.description = 'Week: ' + str(week)
         w.save()
+        l.append(w)
         d = d + timedelta(days=7)
+    return l
 
 def season_generator():
         s = Season()
@@ -69,3 +72,22 @@ class WeekTest(TestCase):
         w.save()
         t = date.today().strftime("%m/%d/%Y") + '-' + (date.today() + timedelta(days=7)).strftime("%m/%d/%Y")
         self.assertEqual(w.weekrange(),t)
+
+    def test_planned_hours_0(self):
+        """
+        Tests the planned_hours method of the Week class. Verifies that if no hours
+        are planned for the week that 0 is returned.
+        """
+        s = season_generator()
+        l = week_generator(s, 1)
+        self.assertEqual(l.pop().planned_hours(),0)
+
+    def test_completed_hours_0(self):
+        """
+        Tests the planned_hours method of the Week class. Verifies that if no hours
+        are planned for the week that 0 is returned.
+        """
+        s = season_generator()
+        l = week_generator(s, 1)
+        self.assertEqual(l.pop().completed_hours(),0)
+        
