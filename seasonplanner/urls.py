@@ -12,4 +12,6 @@ urlpatterns = patterns('',
     url(r'^seasons/create/$', views.create, name='create'),
     url(r'^weeks/(?P<pk>\d+)/$',
         views.WeekDetailView.as_view(), name='week_detail'),
+    url(r'^workouts/create/$',
+        views.workout_create, name='workout_create'),
 )

@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate
 from django.views.generic import DetailView
 
 from seasonplanner.models import Season, Week, SeasonGoal
-from seasonplanner.forms import SeasonForm
+from seasonplanner.forms import SeasonForm, WorkoutForm
 
 class SeasonDetail(DetailView):
 
@@ -68,3 +68,21 @@ def create(request):
 class WeekDetailView(DetailView):
     model = Week
     template_name = 'seasonplanner/week_detail.html'
+
+def workout_create(request):
+    """ Create a new Workout (either planned or completed) associated with a
+        given week
+    """
+    if request.method == 'POST':
+        #Bind the form to the data from the request
+        form = WorkoutForm(request.POST)
+        if form.is_valid(): # All rules have passed
+            # Process the request
+            w = Workout()
+
+        return HttpResponseRedirect(reverse('seasonplanner:week_detail', args=(w.week.id,)))
+
+    else:
+        form = WorkoutForm() # an unbound form
+
+    return render(request, 'seasonplanner/workout_create.html', {'form': form, })
