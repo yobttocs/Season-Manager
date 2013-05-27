@@ -88,8 +88,7 @@ def workout_create(request):
             w.workout_length = form.cleaned_data['workout_length']
             w.notes = form.cleaned_data['notes']
             w.save()
-            
-        return HttpResponseRedirect(reverse('seasonplanner:week_detail', args=(w.week.id,)))
+            return HttpResponseRedirect(reverse('seasonplanner:week_detail', args=(w.week.id,)))
 
     else:
         form = WorkoutForm() # an unbound form
