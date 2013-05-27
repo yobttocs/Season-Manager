@@ -8,7 +8,14 @@ class SeasonForm(forms.Form):
     length= forms.IntegerField(widget=forms.TextInput(attrs={'type':'number','min':4,'max':52,'step':1}),label="Number of Weeks")
 
 class WorkoutForm(forms.Form):
-    workout_date = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}),label="Workout Date") 
-    workout_length = forms.IntegerField(widget=forms.TextInput(attrs={'type':'number','step':1}), label="Length")
-    notes = forms.CharField(label="Notes")
-    status = forms.CharField(label="Status", max_length=10)
+    COMPLETED = 'COMPLETED'
+    PLANNED = 'PLANNED'
+    STATUS_CHOICES = (
+        (COMPLETED, 'Completed'),
+        (PLANNED, 'Planned'),
+    )
+    status = forms.ChoiceField(label="Status", choices=STATUS_CHOICES)
+    workout_date = forms.DateField(required=True,widget=forms.DateInput(attrs={'type':'date'}),label="Workout Date") 
+    workout_length = forms.IntegerField(required=True, widget=forms.TextInput(attrs={'type':'number','step':1}), label="Length")
+    notes = forms.CharField(label="Notes", required=False)
+
