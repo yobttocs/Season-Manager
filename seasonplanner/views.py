@@ -69,6 +69,14 @@ class WeekDetailView(DetailView):
     model = Week
     template_name = 'seasonplanner/week_detail.html'
 
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get a context
+        context = super(WeekDetailView, self).get_context_data(**kwargs)
+        # Add a Queryset of associated workouts
+        context['planned_workout_list'] = PlannedWorkout.objects.filter(week=context['week'])
+        context['completed_workout_list'] = CompletedWorkout.objects.filter(week=context['week'])
+        return context
+
 def workout_create(request):
     """
     Create a new Workout (either planned or completed) associated with a

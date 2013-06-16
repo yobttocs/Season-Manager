@@ -8,7 +8,9 @@
     <p>Season: {{ week.season.name }}</p>
     <p>Week Start Date: {{ week.start_date }}</p>
     <p>Description: {{ week.description }}</p>
+    {% include "seasonplanner/simple_list.html" with simplelist=planned_workout_list  header="Planned Workouts" %}    
     <p>Planned Hours: {{ week.planned_hours }}</p>
+    {% include "seasonplanner/simple_list.html" with simplelist=completed_workout_list  header="Completed Workouts" %}    
     <p>Completed Hours: {{ week.completed_hours }}</p>
     <p><a href="{% url 'seasonplanner:workout_create' %}">Add a workout</a>
 {% endblock %}

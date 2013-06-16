@@ -63,7 +63,8 @@ class Workout (models.Model):
     workout_date = models.DateField()
     workout_length = models.IntegerField("Workout Length (minutes)")
     notes = models.TextField()
-
+    def __str__(self):
+        return self.workout_date.strftime("%m/%d/%Y") + " - " + str(self.workout_length) + " minutes"
     class Meta:
         abstract = True
 
